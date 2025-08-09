@@ -1,5 +1,5 @@
-import { Mnemonic } from '@mysten/sui.js/cryptography';
 import { Ed25519Keypair } from '@mysten/sui.js/keypairs/ed25519';
+import { fromB64 } from '@mysten/sui.js/utils';
 import {
   fetchPatientRecords,
   createPatientRecord,
@@ -10,24 +10,20 @@ import {
 } from './blockchain';
 
 async function main() {
-  // Replace with your actual mnemonic phrase (e.g., 12 or 24 words)
-  const mnemonic = new Mnemonic('your mnemonic phrase here with all words'); // e.g., "abandon amount liar ... zoo"
-  const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
-
-  const walletAddress = keypair.getPublicKey().toSuiAddress();
-  console.log('Using address:', walletAddress);
+  // Using the converted private key (hex "d57a551eb6440ad0cdd890baa56a1cc939885761bc2d47d67b15e79970bb088c" to Base64)
+  const keypair = Ed25519Keypair.fromSecretKey(fromB64('1XpVHrZECtDN2JC6pWocw5mIV2G8LUfWexXnmXC7CIw='));
+  const walletAddress = keypair.toSuiAddress();
 
   // Example: Fetch records
   const patients = await fetchPatientRecords(walletAddress);
   console.log('Fetched Patient Records:', patients);
-
   // Example: Create record (encrypted_data as Uint8Array)
-  const encryptedData = new Uint8Array([1, 2, 3]); // Example data
+  const encryptedData = new Uint8Array([1, 2, 3]);  // Example data
   const createDigest = await createPatientRecord(keypair, encryptedData);
   console.log('Create Digest:', createDigest);
 
   // Assume recordId from create or fetch
-  const recordId = ''; // Replace with actual ID
+  const recordId = 'EXAMPLE_RECORD_ID';  // Replace with actual ID
 
   // Example: Update record
   const newEncryptedData = new Uint8Array([4, 5, 6]);
