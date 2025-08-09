@@ -6,42 +6,47 @@ const MainPage: React.FC = () => {
 
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to logout?')) {
-      console.log('Logout initiated');
       localStorage.clear();
-      console.log('Local storage cleared');
       navigate('/login');
-      console.log('Navigating to /login');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">Main Dashboard</h1>
-      <div className="max-w-md mx-auto space-y-4">
-        <button
-          onClick={() => navigate('/create')}
-          className="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700"
-        >
-          Create Record
-        </button>
-        <button
-          onClick={() => navigate('/update')}
-          className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700"
-        >
-          Update Record
-        </button>
-        <button
-          onClick={() => navigate('/view')}
-          className="w-full bg-purple-600 text-white p-3 rounded hover:bg-purple-700"
-        >
-          View Record
-        </button>
-        <button
-          onClick={handleLogout}
-          className="w-full bg-red-600 text-white p-3 rounded hover:bg-red-700"
-        >
-          Logout
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-6">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-4xl">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          Main Dashboard
+        </h1>
+
+        <div className="flex justify-center flex-wrap main-buttons">
+          <button
+            onClick={() => navigate('/create')}
+            className="btn btn-green"
+          >
+            Create Record
+          </button>
+
+          <button
+            onClick={() => navigate('/update')}
+            className="btn btn-blue"
+          >
+            Update Record
+          </button>
+
+          <button
+            onClick={() => navigate('/view')}
+            className="btn btn-purple"
+          >
+            View Record
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="btn btn-red"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );
